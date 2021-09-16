@@ -18,6 +18,7 @@ pipeline {
         script{
           docker.withRegistry('https://nexus.intranda.com:4443','jenkins-docker'){
             dockerimage = docker.build("goobi-viewer-proxy:${BRANCH_NAME}-${env.BUILD_ID}_${env.GIT_COMMIT}")
+            dockerimage_gei = docker.build("gei/goobi-viewer-proxy:${BRANCH_NAME}-${env.BUILD_ID}_${env.GIT_COMMIT}")
           }
         }
       }
@@ -52,6 +53,8 @@ pipeline {
           docker.withRegistry('https://nexus.intranda.com:4443','jenkins-docker'){
             dockerimage.push("${env.TAG_NAME}-${env.BUILD_ID}_${env.GIT_COMMIT}")
             dockerimage.push("latest")
+            dockerimage_gei.push("${env.TAG_NAME}-${env.BUILD_ID}_${env.GIT_COMMIT}")
+            dockerimage_gei.push("latest")
           }
         }
       }
