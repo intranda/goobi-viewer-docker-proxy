@@ -614,7 +614,7 @@ SSLRandomSeed connect builtin
     ## Enable WebSockets to check concurrent access
     RewriteCond %{HTTP:Upgrade} websocket [NC]
     RewriteCond %{HTTP:Connection} upgrade [NC]
-    RewriteRule /?(.*) ws://${VIEWER_CONTAINER}/${VIEWER_HTTP_PORT}/$1 [P,L]
+    RewriteRule /?(.*) ws://${VIEWER_CONTAINER}:${VIEWER_HTTP_PORT}/$1 [P,L]
     
     ## Viewer
     redirect 301 /index.html /viewer/
