@@ -27,7 +27,7 @@ pipeline {
       steps{
         script {
           dockerimage.inside {
-            sh 'test -d /usr/local/apache2/conf/httpd.conf.template || echo "/usr/local/apache2/conf/httpd.conf.template does not exist"'
+            sh 'test -f /usr/local/apache2/conf/httpd.conf.template'
             sh 'envsubst -V'
           }
         }
