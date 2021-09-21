@@ -556,6 +556,13 @@ SSLRandomSeed connect builtin
 
     DocumentRoot /var/www
 
+
+    <Directory "/var/www/empty">
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride None
+        Require all granted
+    </Directory>
+
     ## make sure rewrite is enabled
     RewriteEngine On
     
