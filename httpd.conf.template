@@ -550,6 +550,17 @@ SSLRandomSeed startup builtin
 SSLRandomSeed connect builtin
 </IfModule>
 
+ServerTokens Prod
+ServerSignature Off
+Timeout 60
+KeepAlive On
+MaxKeepAliveRequests 100
+KeepAliveTimeout 15
+LimitRequestFieldSize 8190
+LimitRequestFields 100
+HostnameLookups Off
+
+
 <VirtualHost *:80>
     ServerAdmin support@intranda.com
     ServerName ${SERVERNAME}:${HTTPD_PORT}
@@ -557,7 +568,7 @@ SSLRandomSeed connect builtin
     DocumentRoot /var/www
 
 
-    <Directory "/var/www/empty">
+    <Directory "/var/www/">
         Options Indexes FollowSymLinks MultiViews
         AllowOverride None
         Require all granted
