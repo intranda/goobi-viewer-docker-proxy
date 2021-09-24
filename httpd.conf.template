@@ -212,7 +212,7 @@ Group daemon
 
 </IfModule>
 
-<IfModule remoteip>
+<IfModule remoteip_module>
     RemoteIPHeader $REMOTEIP_HEADER
     RemoteIPInternalProxy $REMOTEIP_INTERNAL_PROXY
 </IfModule>
