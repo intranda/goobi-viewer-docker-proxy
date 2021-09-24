@@ -671,10 +671,11 @@ HostnameLookups Off
     </LocationMatch>
     
     ## solr
-    #redirect 301 /solr /solr/
-    #<Location /solr/>
-    #        Require local
-    #        ProxyPass http://${SOLR_CONTAINER}:${SOLR_PORT}/solr/ retry=0
-    #        ProxyPassReverse http://${SOLR_CONTAINER}:${SOLR_PORT}/solr/
-    #</Location>
+    redirect 301 /solr /solr/
+    <Location /solr/>
+        IncludeOptional /usr/local/apache2/conf/solr-restricions.conf
+        Require all denied
+        ProxyPass http://${SOLR_CONTAINER}:${SOLR_PORT}/solr/ retry=0
+        ProxyPassReverse http://${SOLR_CONTAINER}:${SOLR_PORT}/solr/
+    </Location>
 </VirtualHost>
