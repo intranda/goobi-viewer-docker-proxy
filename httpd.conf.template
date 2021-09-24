@@ -673,7 +673,7 @@ HostnameLookups Off
     ## solr
     redirect 301 /solr /solr/
     <Location /solr/>
-        IncludeOptional /usr/local/apache2/conf/solr-restricions.conf
+        IncludeOptional /usr/local/apache2/conf/solr-restrictions.conf
         Require all denied
         ProxyPass http://${SOLR_CONTAINER}:${SOLR_PORT}/solr/ retry=0
         ProxyPassReverse http://${SOLR_CONTAINER}:${SOLR_PORT}/solr/
