@@ -212,6 +212,11 @@ Group daemon
 
 </IfModule>
 
+<IfModule remoteip>
+    RemoteIPHeader $REMOTEIP_HEADER
+    RemoteIPInternalProxy $REMOTEIP_INTERNAL_PROXY
+</IfModule>
+
 # 'Main' server configuration
 #
 # The directives in this section set up the values used by the 'main'

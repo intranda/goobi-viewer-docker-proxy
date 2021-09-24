@@ -6,6 +6,9 @@ LABEL org.opencontainers.image.authors="Matthias Geerdsen <matthias.geerdsen@int
 ENV HTTPD_PORT 80
 ENV SERVERNAME localhost
 ENV SERVERADMIN support@intranda.com
+ENV REMOTEIP_HEADER="X-Forwarded-For"
+ENV REMOTEIP_INTERNAL_PROXY=""
+ENV USE_MOD_REMOTEIP=0
 
 ENV VIEWER_HTTP_PORT 8080
 ENV VIEWER_AJP_PORT 8009
