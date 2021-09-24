@@ -19,7 +19,7 @@ ENV CONNECTOR_CONTAINER connector
 ENV SOLR_PORT 8983
 ENV SOLR_PATH /solr
 ENV SOLR_CONTAINER solr
-ENV SOLR_INCLUDES ""
+ENV SOLR_INCLUDES "Require all denied"
 
 COPY httpd.conf.template /usr/local/apache2/conf/httpd.conf.template
 COPY run.sh /
