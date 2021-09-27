@@ -11,7 +11,7 @@ Disallow: /viewer/prevHit/
 Disallow: /viewer/login/
 Disallow: /viewer/crowd/
 Disallow: /error/
-​
+
 #Sitemap:
 
 Crawl-delay: 10
