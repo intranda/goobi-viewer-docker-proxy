@@ -6,7 +6,14 @@ envsubst '\$HTTPD_PORT \$SERVERNAME \$SERVERADMIN \$REMOTEIP_HEADER \$REMOTEIP_I
 
 if [ $USE_MOD_REMOTEIP -eq 1 ]
 then
+   echo "Enabling mod_remoteip"
    sed -i 's|#LoadModule remoteip_module modules/mod_remoteip.so|LoadModule remoteip_module modules/mod_remoteip.so|' /usr/local/apache2/conf/httpd.conf
+fi
+
+if [[ "$SITEMAP_LOCATION" != "" ]]
+then
+   echo "Setting Sitemap in robots.txt"
+   sed -i -E "s|^.?Sitemap:.*$|Sitemap: $SITEMAP_LOCATION|" /var/www/robots.txt
 fi
 
 echo "Starting Apache2..."
