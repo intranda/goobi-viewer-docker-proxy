@@ -1,6 +1,6 @@
 pipeline {
 
-  agent any
+  agent none
 
   options {
     buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '15', daysToKeepStr: '90', numToKeepStr: '')
@@ -8,6 +8,7 @@ pipeline {
 
   stages {
     stage('prepare') {
+      agent any
       steps {
         sh 'git clean -fdx'
       }
