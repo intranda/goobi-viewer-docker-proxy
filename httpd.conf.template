@@ -148,7 +148,7 @@ LoadModule proxy_http_module modules/mod_proxy_http.so
 #LoadModule proxy_uwsgi_module modules/mod_proxy_uwsgi.so
 #LoadModule proxy_fdpass_module modules/mod_proxy_fdpass.so
 #LoadModule proxy_wstunnel_module modules/mod_proxy_wstunnel.so
-LoadModule proxy_ajp_module modules/mod_proxy_ajp.so
+#LoadModule proxy_ajp_module modules/mod_proxy_ajp.so
 #LoadModule proxy_balancer_module modules/mod_proxy_balancer.so
 #LoadModule proxy_express_module modules/mod_proxy_express.so
 #LoadModule proxy_hcheck_module modules/mod_proxy_hcheck.so
@@ -644,21 +644,21 @@ HostnameLookups Off
     redirect 301 /viewer /viewer/
     
     RewriteRule ^/viewer/oai/oai2.xsl$ /viewer/oai2.xsl
-    ProxyPassMatch ^/viewer/(oai.*)$ ajp://${CONNECTOR_CONTAINER}:${CONNECTOR_AJP_PORT}/M2M/$1 retry=0
+    ProxyPassMatch ^/viewer/(oai.*)$ http://${CONNECTOR_CONTAINER}:${CONNECTOR_HTTP_PORT}/M2M/$1 retry=0
     <LocationMatch ^/viewer/(oai.*)$>
         Forcetype text/xml
-        ProxyPassReverse ajp://${CONNECTOR_CONTAINER}:${CONNECTOR_AJP_PORT}/M2M/$1
+        ProxyPassReverse http://${CONNECTOR_CONTAINER}:${CONNECTOR_HTTP_PORT}/M2M/$1
     </LocationMatch>
     
-    ProxyPassMatch ^/viewer/(sru.*)$ ajp://${CONNECTOR_CONTAINER}:${CONNECTOR_AJP_PORT}/M2M/$1 retry=0
+    ProxyPassMatch ^/viewer/(sru.*)$ http://${CONNECTOR_CONTAINER}:${CONNECTOR_HTTP_PORT}/M2M/$1 retry=0
     <LocationMatch ^/viewer/(sru.*)$>
         Forcetype text/xml
-        ProxyPassReverse ajp://${CONNECTOR_CONTAINER}:${CONNECTOR_AJP_PORT}/M2M/$1
+        ProxyPassReverse http://${CONNECTOR_CONTAINER}:${CONNECTOR_HTTP_PORT}/M2M/$1
     </LocationMatch>
     
-    ProxyPassMatch ^/viewer/(.*)$ ajp://${VIEWER_CONTAINER}:${VIEWER_AJP_PORT}/viewer/$1 retry=0
+    ProxyPassMatch ^/viewer/(.*)$ http://${VIEWER_CONTAINER}:${VIEWER_HTTP_PORT}/viewer/$1 retry=0
     <LocationMatch ^/viewer/(.*)$>
-        ProxyPassReverse ajp://${VIEWER_CONTAINER}:${VIEWER_AJP_PORT}/viewer/$1
+        ProxyPassReverse http://${VIEWER_CONTAINER}:${VIEWER_HTTP_PORT}/viewer/$1
         <IfModule mod_expires.c>
             ExpiresActive on
             
