@@ -18,8 +18,8 @@ pipeline {
       steps {
         script{
           docker.withRegistry('https://nexus.intranda.com:4443','jenkins-docker'){
-            dockerimage = docker.build("goobi-viewer-proxy:${BRANCH_NAME}-${env.BUILD_ID}_${env.GIT_COMMIT}")
-            dockerimage_public = docker.build("intranda/goobi-viewer-proxy:${BRANCH_NAME}-${env.BUILD_ID}_${env.GIT_COMMIT}")
+            dockerimage = docker.build("goobi-viewer-docker-proxy:${BRANCH_NAME}-${env.BUILD_ID}_${env.GIT_COMMIT}")
+            dockerimage_public = docker.build("intranda/goobi-viewer-docker-proxy:${BRANCH_NAME}-${env.BUILD_ID}_${env.GIT_COMMIT}")
           }
         }
       }
