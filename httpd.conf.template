@@ -619,6 +619,9 @@ HostnameLookups Off
         Require local
     </Proxy>
     
+    ## Custom configuration
+${CUSTOM_CONFIG}
+
     ## CORS for IIIF
     Header set Access-Control-Allow-Origin "*"
     Header always set Access-Control-Allow-Methods "GET, OPTIONS"
