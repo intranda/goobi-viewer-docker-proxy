@@ -579,6 +579,13 @@ HostnameLookups Off
         Require all granted
     </Directory>
 
+    ## Security
+    # If set to 'none' the Matomo iFrame does not work anymore
+    Header set Content-Security-Policy "frame-ancestors 'self';"
+    Header always append X-Frame-Options DENY
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set X-Content-Type-Options nosniff
+
     ## make sure rewrite is enabled
     RewriteEngine On
     
