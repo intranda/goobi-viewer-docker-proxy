@@ -84,6 +84,32 @@ pipeline {
         }
       }
     }
+    stage('publish develop image to GitHub container registry'){
+      agent any
+      when {
+        branch 'develop'
+      }
+      steps{
+        script{
+          docker.withRegistry('https://ghcr.io','jenkins-github-container-registry'){
+            dockerimage_public.push("${env.BRANCH_NAME}")
+          }
+        }
+      }
+    }
+    stage('publish production image to GitHub container registry'){
+      agent any
+      when {
+        branch 'master'
+      }
+      steps{
+        script{
+          docker.withRegistry('https://ghcr.io','jenkins-github-container-registry'){
+            dockerimage_public.push("latest")
+          }
+        }
+      }
+    }
   }
   post {
     changed {
