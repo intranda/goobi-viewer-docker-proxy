@@ -2,6 +2,7 @@ FROM httpd:2.4
 
 LABEL org.opencontainers.image.authors="Matthias Geerdsen <matthias.geerdsen@intranda.com>"
 LABEL org.opencontainers.image.source=https://github.com/intranda/goobi-viewer-docker-proxy
+LABEL org.opencontainers.image.description="Goobi viewer - http reverse proxy"
 
 ENV HTTPD_PORT 80
 ENV SERVERNAME localhost
