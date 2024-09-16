@@ -644,10 +644,6 @@ ${CUSTOM_CONFIG}
     # https://httpd.apache.org/docs/trunk/mod/mod_deflate.html#deflatealteretag
     RequestHeader edit "If-None-Match" '(.*)-gzip"$' '$1", $1-gzip"'
     
-    ## Enable WebSockets to check concurrent access
-    RewriteCond %{HTTP:Upgrade} websocket [NC]
-    RewriteCond %{HTTP:Connection} upgrade [NC]
-    RewriteRule /?(.*) ws://${VIEWER_CONTAINER}:${VIEWER_HTTP_PORT}/$1 [P,L]
 
     ## Security
     # If set to 'none' the Matomo iFrame does not work anymore
@@ -660,6 +656,7 @@ ${CUSTOM_CONFIG}
     redirect 301 /index.html /viewer/
     redirect 301 /viewer /viewer/
 
+    ProxyPass /viewer/omnifaces.push/ http://${VIEWER_CONTAINER_CONTAINER}:${VIEWER_HTTP_PORT}/viewer/omnifaces.push/ retry=0 upgrade=websocket
     ProxyPassMatch ^/viewer/(.*)$ http://${VIEWER_CONTAINER}:${VIEWER_HTTP_PORT}/viewer/$1 retry=0
     <LocationMatch ^/viewer/(.*)$>
         ProxyPassReverse http://${VIEWER_CONTAINER}:${VIEWER_HTTP_PORT}/viewer/$1
