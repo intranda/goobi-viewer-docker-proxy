@@ -648,11 +648,18 @@ ${CUSTOM_CONFIG}
     RewriteCond %{HTTP:Upgrade} websocket [NC]
     RewriteCond %{HTTP:Connection} upgrade [NC]
     RewriteRule /?(.*) ws://${VIEWER_CONTAINER}:${VIEWER_HTTP_PORT}/$1 [P,L]
+
+    ## Security
+    # If set to 'none' the Matomo iFrame does not work anymore
+    Header set Content-Security-Policy "frame-ancestors 'self';"
+    Header always append X-Frame-Options DENY
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set X-Content-Type-Options nosniff
     
     ## Viewer
     redirect 301 /index.html /viewer/
     redirect 301 /viewer /viewer/
-    
+
     ProxyPassMatch ^/viewer/(.*)$ http://${VIEWER_CONTAINER}:${VIEWER_HTTP_PORT}/viewer/$1 retry=0
     <LocationMatch ^/viewer/(.*)$>
         ProxyPassReverse http://${VIEWER_CONTAINER}:${VIEWER_HTTP_PORT}/viewer/$1
