@@ -657,8 +657,8 @@ ${CUSTOM_CONFIG}
     redirect 301 /viewer /viewer/
 
     ProxyPass /viewer/omnifaces.push/ http://${VIEWER_CONTAINER}:${VIEWER_HTTP_PORT}/viewer/omnifaces.push/ retry=0 upgrade=websocket
-    ProxyPassMatch ^/viewer/(.*)$ http://${VIEWER_CONTAINER}:${VIEWER_HTTP_PORT}/viewer/$1 retry=0
     <LocationMatch ^/viewer/(.*)$>
+        ProxyPassMatch   http://${VIEWER_CONTAINER}:${VIEWER_HTTP_PORT}/viewer/$1 retry=0
         ProxyPassReverse http://${VIEWER_CONTAINER}:${VIEWER_HTTP_PORT}/viewer/$1
         <IfModule mod_expires.c>
             ExpiresActive on
@@ -674,6 +674,30 @@ ${CUSTOM_CONFIG}
         </IfModule>
         
         Require all granted
+    </LocationMatch>
+
+    <LocationMatch ^.*/api/v[12]/index/stream.*$>
+      Require all denied
+    </LocationMatch>
+    
+    <LocationMatch ^.*user/resetpw/.*$>
+      Require all denied
+    </LocationMatch>
+    
+    <LocationMatch ^.*tasks/download/monitor\.socket$>
+      Require all denied
+    </LocationMatch>
+
+    <LocationMatch ^/oai(.*)$>
+      Require all granted
+      ProxyPassMatch   http://${VIEWER_CONTAINER}:${VIEWER_HTTP_PORT}/viewer/oai$1 retry=0
+      ProxyPassReverse http://${VIEWER_CONTAINER}:${VIEWER_HTTP_PORT}/viewer/oai$1
+    </LocationMatch>
+    
+    <LocationMatch ^/sru(.*)$>
+      Require all granted
+      ProxyPassMatch   http://${VIEWER_CONTAINER}:${VIEWER_HTTP_PORT}/viewer/sru$1 retry=0
+      ProxyPassReverse http://${VIEWER_CONTAINER}:${VIEWER_HTTP_PORT}/viewer/sru$1
     </LocationMatch>
     
     ## solr
